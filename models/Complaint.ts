@@ -1,24 +1,30 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Model } from 'mongoose';
 
-export interface IComplaint extends Document {
+// 1. Define the TypeScript Interface
+export interface IComplaint {
   title: string;
   description: string;
-  category: 'Product' | 'Service' | 'Support';
-  priority: 'Low' | 'Medium' | 'High';
-  status: 'Pending' | 'In Progress' | 'Resolved';
+  category: string;
+  priority: string;
+  status: string;
   dateSubmitted: Date;
+  userName: string; // <--- Explicitly defined here
 }
 
-const ComplaintSchema: Schema = new Schema({
+// 2. Define the Schema (Generics <IComplaint> connects the schema to the interface)
+const ComplaintSchema = new Schema<IComplaint>({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  category: { type: String, enum: ['Product', 'Service', 'Support'], required: true },
-  priority: { type: String, enum: ['Low', 'Medium', 'High'], required: true },
-  status: { type: String, enum: ['Pending', 'In Progress', 'Resolved'], default: 'Pending' },
+  category: { type: String, required: true },
+  priority: { type: String, required: true },
+  status: { type: String, default: 'Pending' },
   dateSubmitted: { type: Date, default: Date.now },
+  userName: { type: String, default: 'Anonymous' }, // <--- Mongoose Field
 });
 
-// Prevent model overwrite error in Next.js
-const Complaint: Model<IComplaint> = mongoose.models.Complaint || mongoose.model<IComplaint>('Complaint', ComplaintSchema);
+// 3. Create the Model (With type casting for Next.js hot-reloading)
+const Complaint = 
+  (mongoose.models.Complaint as Model<IComplaint>) || 
+  mongoose.model<IComplaint>('Complaint', ComplaintSchema);
 
 export default Complaint;
