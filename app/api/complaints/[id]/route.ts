@@ -2,38 +2,55 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Complaint from '@/models/Complaint';
 import { sendNotification } from '@/lib/email';
+import { generateStatusUpdateEmail } from '@/lib/templates'; // <--- Import this
 
-// PATCH: Update status (Admin)
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export const dynamic = 'force-dynamic';
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   await connectDB();
   try {
+    const { id } = await params;
     const { status } = await req.json();
+    
     const complaint = await Complaint.findByIdAndUpdate(
-      params.id, 
+      id, 
       { status }, 
       { new: true }
     );
 
     if (!complaint) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-    // Email Notification to Admin confirming update
+    // Generate Professional HTML
+    const emailHtml = generateStatusUpdateEmail({
+      title: complaint.title,
+      status: status
+    });
+
+    // Send Email
     await sendNotification(
       process.env.ADMIN_EMAIL!,
-      `Status Updated: ${complaint.title}`,
-      `<p>The status of complaint "<strong>${complaint.title}</strong>" has been updated to <strong>${status}</strong>.</p>`
+      `Status Update: ${complaint.title}`,
+      emailHtml // <--- Use the HTML here
     );
 
     return NextResponse.json(complaint);
   } catch (error) {
+    console.error("Update Error:", error);
     return NextResponse.json({ error: 'Update failed' }, { status: 500 });
   }
 }
 
-// DELETE: Delete complaint (Admin)
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   await connectDB();
   try {
-    await Complaint.findByIdAndDelete(params.id);
+    const { id } = await params;
+    await Complaint.findByIdAndDelete(id);
     return NextResponse.json({ message: 'Deleted successfully' });
   } catch (error) {
     return NextResponse.json({ error: 'Delete failed' }, { status: 500 });
