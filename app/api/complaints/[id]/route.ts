@@ -23,7 +23,7 @@ export async function PATCH(
 
     if (!complaint) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-    // Generate Professional HTML
+    //Generate email
     const emailHtml = generateStatusUpdateEmail({
       title: complaint.title,
       status: status
@@ -33,7 +33,7 @@ export async function PATCH(
     await sendNotification(
       process.env.ADMIN_EMAIL!,
       `Status Update: ${complaint.title}`,
-      emailHtml // <--- Use the HTML here
+      emailHtml 
     );
 
     return NextResponse.json(complaint);

@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import User from '@/models/Users';
 import bcrypt from 'bcryptjs';
-import { SignJWT } from 'jose';      // <--- Added
-import { cookies } from 'next/headers'; // <--- Added
+import { SignJWT } from 'jose';     
+import { cookies } from 'next/headers'; 
 
 export async function POST(req: Request) {
   await connectDB();

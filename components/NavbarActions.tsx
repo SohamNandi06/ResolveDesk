@@ -27,7 +27,7 @@ export default function NavbarActions({ user }: { user: User | null }) {
         <div className="hidden md:flex items-center gap-3 pl-1 pr-4 py-1 bg-white/50 border border-slate-200 backdrop-blur-sm rounded-full shadow-sm transition-all hover:bg-white hover:shadow-md group cursor-default">
           
           {/* Avatar Circle */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-inner">
+          <div className="w-8 h-8 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-inner">
             {user.name.charAt(0).toUpperCase()}
           </div>
           

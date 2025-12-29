@@ -32,7 +32,7 @@ export default function ComplaintForm() {
   return (
     <div className="relative group">
       {/* Glowing background effect behind the form */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+      <div className="absolute -inset-1 bg-linear-to-r from-indigo-500 to-purple-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
       
       {/* The Glass Card */}
       <div className="relative bg-white/70 backdrop-blur-xl border border-white/50 p-8 md:p-10 rounded-3xl shadow-2xl ring-1 ring-black/5">
@@ -110,7 +110,7 @@ export default function ComplaintForm() {
             <textarea 
               required
               placeholder="Tell us more about what happened..."
-              className="w-full bg-white border border-slate-200 text-slate-900 text-base leading-relaxed placeholder:text-slate-300 rounded-2xl px-5 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm min-h-[160px] resize-none"
+              className="w-full bg-white border border-slate-200 text-slate-900 text-base leading-relaxed placeholder:text-slate-300 rounded-2xl px-5 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm min-h-40 resize-none"
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
             />
@@ -119,7 +119,7 @@ export default function ComplaintForm() {
           {/* Action Button */}
           <button 
             disabled={loading}
-            className="w-full relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg py-5 rounded-2xl shadow-xl shadow-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group/btn"
+            className="w-full relative overflow-hidden bg-lieanr-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg py-5 rounded-2xl shadow-xl shadow-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group/btn"
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
               {loading ? 'Sending Ticket...' : 'Submit Ticket'}
@@ -128,7 +128,7 @@ export default function ComplaintForm() {
               )}
             </span>
             {/* Shimmer effect on button */}
-            <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out"></div>
+            <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out"></div>
           </button>
 
         </form>
