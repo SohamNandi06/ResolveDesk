@@ -119,7 +119,7 @@ export default function ComplaintForm() {
           {/* Action Button */}
           <button 
             disabled={loading}
-            className="w-full relative overflow-hidden bg-lieanr-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg py-5 rounded-2xl shadow-xl shadow-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group/btn"
+            className="w-full relative overflow-hidden bg-linear-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg py-5 rounded-2xl shadow-xl shadow-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group/btn"
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
               {loading ? 'Sending Ticket...' : 'Submit Ticket'}
